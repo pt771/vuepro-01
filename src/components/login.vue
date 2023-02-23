@@ -31,8 +31,8 @@ export default {
     data(){
         return{
             login_form:{
-                username:'',
-                password:''
+                username:'admin',
+                password:'123456'
             },
             login_rules:{
                 username:[
@@ -50,30 +50,29 @@ export default {
         resetForm(){
             this.$refs.loginFormReset.resetFields()
         },
-        // login(){
-        //     this.$refs.loginFormReset.validate( async valid=>{
-        //         /* valid验证为false，退出 */
-        //        if(!valid) return;
-        //        /* 验证成功，向服务端发起（axios)请求 */
-        //        const {data:res}= await this.$http.post('login',this.login_form)
-        //        console.log(res);
-        //        if(res.meta.status !== 200) return this.$message.error("登录失败！")
-        //         this.$message.success("登陆成功！")
-        //         Window.sessionStorage.setItem("token", res.data.token)
-        //         this.$router.push('/home')
-        //     })
-        // },
         login(){
-            this.$refs.loginFormReset.validate(valid=>{
-                if(!valid) return this.$message.error("请您正确填写账号或密码！")
-                var a = parseInt(this.login_form.password)
-                if( a !== 88888888) return this.$message.error("登陆失败！您的密码不正确！")
-                this.$message.success("登录成功！")
-                window.sessionStorage.setItem('token', "zheshiyanzhengmashuju")
+            this.$refs.loginFormReset.validate( async valid=>{
+                /* valid验证为false，退出 */
+               if(!valid) return;
+               /* 验证成功，向服务端发起（axios)请求 */
+               const {data:res}= await this.$http.post('login',this.login_form)
+               if(res.meta.status !== 200) return this.$message.error("登录失败！")
+                this.$message.success("登陆成功！")
+                window.sessionStorage.setItem("token", res.data.token)
                 this.$router.push('/home')
             })
+        },
+        // login(){
+        //     this.$refs.loginFormReset.validate(valid=>{
+        //         if(!valid) return this.$message.error("请您正确填写账号或密码！")
+        //         var a = parseInt(this.login_form.password)
+        //         if( a !== 88888888) return this.$message.error("登陆失败！您的密码不正确！")
+        //         this.$message.success("登录成功！")
+        //         window.sessionStorage.setItem('token', "zheshiyanzhengmashuju")
+        //         this.$router.push('/home')
+        //     })
            
-        }
+        // }
     }
 }
 
