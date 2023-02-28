@@ -6,7 +6,17 @@
 
 <script>
     export default{
+        data(){
 
+        },
+
+        created(){
+
+        },
+
+        methods:{
+            
+        }
 
     }
 </script>
