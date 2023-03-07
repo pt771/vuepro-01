@@ -1,24 +1,27 @@
 <template>
     <div>
-        <h1>模板</h1>
+        <h1>Liebiao模板</h1>
     </div>
 </template>
 
 <script>
-    export default{
-        data(){
+export default {
 
-        },
-
-        created(){
-
-        },
-
-        methods:{
-            
-        }
+  data() {
+    return {
 
     }
+  },
+
+  created() {
+
+  },
+
+  methods: {
+
+  }
+
+}
 </script>
 
 <style lang="less" scoped>

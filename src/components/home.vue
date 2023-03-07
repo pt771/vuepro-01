@@ -7,14 +7,14 @@
                 <span>管理后台</span>
             </div>
             <el-button type="info" @click="logout">退出</el-button>
-        </el-header> 
+        </el-header>
         <!-- 页面布局 -->
         <el-container>
         <!-- 左侧边栏 -->
         <el-aside :width="isCollapse ? '64px' : '200px'">
         <div class="toggle-button" @click="toggleChange">|||</div>
-        <el-menu background-color="#333744" text-color="#fff" 
-        active-text-color="#409EFF" unique-opened 
+        <el-menu background-color="#333744" text-color="#fff"
+        active-text-color="#409EFF" unique-opened
         :collapse="isCollapse" :collapse-transition="false" router :default-active="activePath"
         >
         <!-- 一级菜单 -->
@@ -24,7 +24,7 @@
           <span>{{ item.authName }}</span>
         </template>
         <!-- 二级菜单 -->
-        <el-menu-item :index="'/' + subitem.path" v-for="subitem in item.children" 
+        <el-menu-item :index="'/' + subitem.path" v-for="subitem in item.children"
             :key="subitem.id" @click="saveNavLink('/' + subitem.path)"
         >
          <template slot="title">
@@ -44,44 +44,44 @@
 </template>
 
 <script>
-    export default{
-        data(){
-            return{
-                menuList:[],
-                iconObj:{
-                    '125' :'el-icon-s-custom',
-                    '103' :'el-icon-coin',
-                    '101' :'el-icon-shopping-bag-1',
-                    '102' :'el-icon-notebook-2',
-                    '145' :'el-icon-data-analysis',
-                },
-                isCollapse:false,
-                activePath:[]
-            }
-        },
-        created(){
-            this.getMenuList()
-            this.activePath = window.sessionStorage.getItem('activePath')
-        },
-        methods:{
-            logout(){
-                window.sessionStorage.clear()
-                this.$router.push('/login')
-            },
-            async getMenuList(){
-            const {data:res} = await this.$http.get('menus')
-            if(res.meta.status !== 200) return this.$message.error(res.meta.msg)
-            this.menuList = res.data 
-            },
-            toggleChange(){
-                this.isCollapse = !this.isCollapse
-            },
-            saveNavLink(activePath){
-                window.sessionStorage.setItem('activePath', activePath)
-                this.activePath = activePath
-            }
-        }
-    }   
+export default {
+  data() {
+    return {
+      menuList: [],
+      iconObj: {
+        125: 'el-icon-s-custom',
+        103: 'el-icon-coin',
+        101: 'el-icon-shopping-bag-1',
+        102: 'el-icon-notebook-2',
+        145: 'el-icon-data-analysis'
+      },
+      isCollapse: false,
+      activePath: []
+    }
+  },
+  created() {
+    this.getMenuList()
+    this.activePath = window.sessionStorage.getItem('activePath')
+  },
+  methods: {
+    logout() {
+      window.sessionStorage.clear()
+      this.$router.push('/login')
+    },
+    async getMenuList() {
+      const { data: res } = await this.$http.get('menus')
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.menuList = res.data
+    },
+    toggleChange() {
+      this.isCollapse = !this.isCollapse
+    },
+    saveNavLink(activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

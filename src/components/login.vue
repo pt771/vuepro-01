@@ -28,52 +28,52 @@
 <script>
 
 export default {
-    data(){
-        return{
-            login_form:{
-                username:'admin',
-                password:'123456'
-            },
-            login_rules:{
-                username:[
-                { required: true, message: '请输入您的名称', trigger: 'blur' },
-                { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-                ],
-                password:[
-                { required: true, message: '请输入您的密码', trigger: 'blur' },
-                { min: 6, max: 12, message: '长度在 6 到 12 个数字', trigger: 'blur' }
-                ]
-            }
-        }
-    },
-    methods:{
-        resetForm(){
-            this.$refs.loginFormReset.resetFields()
-        },
-        login(){
-            this.$refs.loginFormReset.validate( async valid=>{
-                /* valid验证为false，退出 */
-               if(!valid) return;
-               /* 验证成功，向服务端发起（axios)请求 */
-               const {data:res}= await this.$http.post('login',this.login_form)
-               if(res.meta.status !== 200) return this.$message.error("登录失败！")
-                this.$message.success("登陆成功！")
-                window.sessionStorage.setItem("token", res.data.token)
-                this.$router.push('/home')
-            })
-        },
-        // login(){
-        //     this.$refs.loginFormReset.validate(valid=>{
-        //         if(!valid) return this.$message.error("请您正确填写账号或密码！")
-        //         var a = parseInt(this.login_form.password)
-        //         if( a !== 88888888) return this.$message.error("登陆失败！您的密码不正确！")
-        //         this.$message.success("登录成功！")
-        //         window.sessionStorage.setItem('token', "zheshiyanzhengmashuju")
-        //         this.$router.push('/home')
-        //     })
-           
-        // }
+  data() {
+    return {
+      login_form: {
+        username: 'admin',
+        password: '123456'
+      },
+      login_rules: {
+        username: [
+          { required: true, message: '请输入您的名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入您的密码', trigger: 'blur' },
+          { min: 6, max: 12, message: '长度在 6 到 12 个数字', trigger: 'blur' }
+        ]
+      }
     }
+  },
+  methods: {
+    resetForm() {
+      this.$refs.loginFormReset.resetFields()
+    },
+    login() {
+      this.$refs.loginFormReset.validate(async valid => {
+        /* valid验证为false，退出 */
+        if (!valid) return
+        /* 验证成功，向服务端发起（axios)请求 */
+        const { data: res } = await this.$http.post('login', this.login_form)
+        if (res.meta.status !== 200) return this.$message.error('登录失败！')
+        this.$message.success('登陆成功！')
+        window.sessionStorage.setItem('token', res.data.token)
+        this.$router.push('/home')
+      })
+    }
+    // login(){
+    //     this.$refs.loginFormReset.validate(valid=>{
+    //         if(!valid) return this.$message.error("请您正确填写账号或密码！")
+    //         var a = parseInt(this.login_form.password)
+    //         if( a !== 88888888) return this.$message.error("登陆失败！您的密码不正确！")
+    //         this.$message.success("登录成功！")
+    //         window.sessionStorage.setItem('token', "zheshiyanzhengmashuju")
+    //         this.$router.push('/home')
+    //     })
+
+    // }
+  }
 }
 
 </script>
@@ -108,7 +108,7 @@ export default {
             width: 100%;
             border-radius: 50%;
             background-color: #eee;
-            
+
         }
     }
 }

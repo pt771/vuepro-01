@@ -26,23 +26,23 @@
 
 <script>
 
-    export default{
-        data(){
-            return{
-                rigthsList:[]
-            }
-        },
-        created(){
-            this.getRightsList()
-        },
-        methods:{
-           async getRightsList(){
-             const {data : res} = await this.$http.get('rights/list')
-            if(res.meta.status != 200) return this.$message.error('获取权限失败！')
-             this.rigthsList = res.data
-            }
-        }
+export default {
+  data() {
+    return {
+      rigthsList: []
     }
+  },
+  created() {
+    this.getRightsList()
+  },
+  methods: {
+    async getRightsList() {
+      const { data: res } = await this.$http.get('rights/list')
+      if (res.meta.status != 200) return this.$message.error('获取权限失败！')
+      this.rigthsList = res.data
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>

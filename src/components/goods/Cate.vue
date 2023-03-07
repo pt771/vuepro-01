@@ -18,8 +18,8 @@
                <el-table-column label="名称" prop="cat_name"></el-table-column>
                <el-table-column label="是否有效" prop="cat_deleted">
                     <template slot-scope="scope" >
-                        <i class="el-icon-success" v-if = "scope.row.cat_deleted === false" style="color: lightgreen;"></i> 
-                        <i class="el-icon-error" v-else style="color: red;"></i> 
+                        <i class="el-icon-success" v-if = "scope.row.cat_deleted === false" style="color: lightgreen;"></i>
+                        <i class="el-icon-error" v-else style="color: red;"></i>
                     </template>
                </el-table-column>
                 <el-table-column label="排序" prop="cat_level">
@@ -71,104 +71,101 @@
 </template>
 
 <script>
-    export default{
-        data(){
-           return{
-            cateList:[],
-            /* 查询条件 */
-            pramsInfo:{
-                type:3,
-                pagenum:1,
-                pagesize:5
-            },
-            /* 商品条目总数 */
-            total:0,
-            /* 设置添加对话框初始值 */
-            setCateDialogVisible:false,
-            /* 添加对话框表格 */
-            addCateForm:{
-                cat_name:'',
-                cat_level:0,
-                cat_pid:0
-            },
-            /* 添加对话框验证规则 */
-            addCaterules:{
-                cat_name:[
-                { required: true, message: '请输入分类名称', trigger: 'blur' },
-                { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
-                ]
-            },
-            parentList:[],
-           
-           
-            /* 选中父级分类的Id */
-            selectedKeys:[]
+export default {
+  data() {
+    return {
+      cateList: [],
+      /* 查询条件 */
+      pramsInfo: {
+        type: 3,
+        pagenum: 1,
+        pagesize: 5
+      },
+      /* 商品条目总数 */
+      total: 0,
+      /* 设置添加对话框初始值 */
+      setCateDialogVisible: false,
+      /* 添加对话框表格 */
+      addCateForm: {
+        cat_name: '',
+        cat_level: 0,
+        cat_pid: 0
+      },
+      /* 添加对话框验证规则 */
+      addCaterules: {
+        cat_name: [
+          { required: true, message: '请输入分类名称', trigger: 'blur' },
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+        ]
+      },
+      parentList: [],
 
-        }     
-        },
-
-        created(){
-            this.getCateList()
-        },
-
-        methods:{
-            /* 获取商品列表 */
-           async getCateList(){
-            const {data : res } = await this.$http.get('categories',{params:this.pramsInfo})
-            if(res.meta.status !== 200 ) return this.$message.error('获取商品失败！')
-            this.cateList = res.data.result
-            this.total = res.data.total
-            },
-            /* 操作页面多少量 */
-            handleSizeChange(newSize){
-                this.pramsInfo.pagesize = newSize
-                this.getCateList()
-            },
-            /* 操作页码值 */
-            handleCurrentChange(newPage){
-                this.pramsInfo.pagenum = newPage
-                this.getCateList()
-            },
-            /* 显示添加对话框 */
-            show_setCateDialog(){
-                this.getParentList()
-                this.setCateDialogVisible = true
-            },
-            setCateDialogVisibleClosed(){
-                this.$refs.addCateFormRef.resetFields()
-                this.selectedKeys = []
-                this.addCateForm.cat_level = 0
-                this.addCateForm.cat_pid = 0
-            },
-            /* 获取父级分类 */
-           async getParentList(){
-                const {data :res} = await this.$http.get('categories', {params:{type:'2'}})
-                if(res.meta.status !== 200) return this.$message.error('获取父级分类失败！')
-                this.parentList = res.data
-            },
-            handleChange(){
-
-                if(this.selectedKeys.length > 0){
-                   this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
-                   this.addCateForm.cat_level = this.selectedKeys.length
-                   return 
-                }else{
-                    this.addCateForm.cat_pid = 0
-                    this.addCateForm.cat_level = 0
-                }
-
-            },
-            /* 添加分类 */
-            async addCate(){
-                const {data : res} = await this.$http.post('categories',this.addCateForm)
-                if(res.meta.status !== 201) return this.$message.error('添加失败！')
-                this.$message.success('添加分类成功！')
-                this.getCateList()
-                this.setCateDialogVisible = false
-            }
-        }
+      /* 选中父级分类的Id */
+      selectedKeys: []
 
     }
+  },
+
+  created() {
+    this.getCateList()
+  },
+
+  methods: {
+    /* 获取商品列表 */
+    async getCateList() {
+      const { data: res } = await this.$http.get('categories', { params: this.pramsInfo })
+      if (res.meta.status !== 200) return this.$message.error('获取商品失败！')
+      this.cateList = res.data.result
+      this.total = res.data.total
+    },
+    /* 操作页面多少量 */
+    handleSizeChange(newSize) {
+      this.pramsInfo.pagesize = newSize
+      this.getCateList()
+    },
+    /* 操作页码值 */
+    handleCurrentChange(newPage) {
+      this.pramsInfo.pagenum = newPage
+      this.getCateList()
+    },
+    /* 显示添加对话框 */
+    show_setCateDialog() {
+      this.getParentList()
+      this.setCateDialogVisible = true
+    },
+    setCateDialogVisibleClosed() {
+      this.$refs.addCateFormRef.resetFields()
+      this.selectedKeys = []
+      this.addCateForm.cat_level = 0
+      this.addCateForm.cat_pid = 0
+    },
+    /* 获取父级分类 */
+    async getParentList() {
+      const { data: res } = await this.$http.get('categories', { params: { type: '2' } })
+      if (res.meta.status !== 200) return this.$message.error('获取父级分类失败！')
+      this.parentList = res.data
+    },
+    handleChange() {
+      if (this.selectedKeys.length > 0) {
+        this.addCateForm.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
+        this.addCateForm.cat_level = this.selectedKeys.length
+        return
+      } else {
+        this.addCateForm.cat_pid = 0
+        this.addCateForm.cat_level = 0
+      }
+    },
+    /* 添加分类 */
+    async addCate() {
+      const { data: res } = await this.$http.post('categories', this.addCateForm)
+      if (res.meta.status !== 201) return this.$message.error('添加失败！')
+      this.$message.success('添加分类成功！')
+      this.getCateList()
+      this.setCateDialogVisible = false
+    }
+  }
+
+}
 </script>
 
 <style lang="less" scoped>

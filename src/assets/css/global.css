@@ -17,3 +17,12 @@ html,body,#app{
 .el-cascader-panel{
     height: 280px;
    }
+.el-table{
+    margin-top: 15px;
+   }
+.el-steps{
+    margin-top: 15px;
+}
+.ql-editor{
+    min-height: 300px;
+}
