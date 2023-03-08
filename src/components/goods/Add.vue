@@ -131,7 +131,7 @@ export default {
 
       manyTabData: [],
       onlyTabData: [],
-      uploadUrl: 'http://127.0.0.1:8888/api/private/v1/upload',
+      uploadUrl: 'https://lianghj.top:8888/api/private/v1/upload',
       headersObj: {
         Authorization: window.sessionStorage.getItem('token')
       },
